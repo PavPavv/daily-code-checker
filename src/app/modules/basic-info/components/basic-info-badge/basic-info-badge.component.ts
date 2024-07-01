@@ -11,7 +11,7 @@ export class BasicInfoBadgeComponent {
   @Input() size: 'sm' | 'lg' = 'sm';
   @Input() isShadowed: boolean = false;
   
-  private _img_name = '../../../../../assets/img/';
+  private _img_name = './assets/img/';
 
   getBadgePath(): string {
     return this._img_name + this.name + '.png';
