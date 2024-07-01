@@ -1,0 +1,11 @@
+  <app-tooltip
+    [text]='title'
+    [ngClass]="{
+      sm: size === 'sm',
+      lg: size === 'lg'
+    }"
+    class='basic-info-badge'
+  >
+    <img [src]="getBadgePath()" alt="badge image">
+    <div *ngIf='isShadowed' class='overlay'></div>
+  </app-tooltip>

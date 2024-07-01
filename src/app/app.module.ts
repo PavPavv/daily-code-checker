@@ -1,17 +1,27 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
-import { MainPageComponent } from './main-page/main-page.component';
+import { HttpClientModule } from '@angular/common/http';
 
+import { AppRoutingModule } from './app-routing.module';
+import { BasicInfoModule } from './modules/basic-info/basic-info.module';
 
-
+import { AppComponent } from './app.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 @NgModule({
   declarations: [
+    AppComponent,
     NotFoundPageComponent,
-    MainPageComponent
+    MainPageComponent,
   ],
   imports: [
-    CommonModule
-  ]
+    BrowserModule,
+    CommonModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BasicInfoModule,
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

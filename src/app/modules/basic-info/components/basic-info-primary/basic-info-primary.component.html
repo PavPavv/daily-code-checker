@@ -1,0 +1,82 @@
+<section class='primary-info'>
+  <div class="primary-info__stories">
+    <div class="primary-info__avatar">
+      <img src="{{ user?.avatar_url }}" alt="user image from gh">
+    </div>
+  </div>
+  <div class="primary-info__username honk">{{ user?.login }}</div>
+
+  <div class='content'>
+    <div class="primary-info__table ubuntu-bold">
+
+      <div class="primary-info__table--row">
+        <div class="primary-info__table--cell title">GitHub member since:</div>
+        <div class="primary-info__table--cell primary-info__table--cell_data">2017</div>
+      </div>
+  
+      <div class="primary-info__table--row">
+        <div class="primary-info__table--cell title">Public repos:</div>
+        <div class="primary-info__table--cell primary-info__table--cell_data">{{ user?.public_repos }}</div>
+      </div>
+  
+      <div class="primary-info__table--row">
+        <div class="primary-info__table--cell title">Using languages:</div>
+        <div class="primary-info__table--cell primary-info__table--cell_data">
+          <app-basic-info-badge name="js" title="JavaScript" [isShadowed]="true" />
+          <app-basic-info-badge name="ts" title="TypeScript" [isShadowed]="true" />
+          <app-basic-info-badge name="dart" title="Dart" [isShadowed]="true" />
+          <app-basic-info-badge name="python" title="Python" [isShadowed]="true" />
+        </div>
+      </div>
+  
+      <div class="primary-info__table--row">
+        <div class="primary-info__table--cell title">Using frameworks:</div>
+        <div class="primary-info__table--cell primary-info__table--cell_data">
+          <app-basic-info-badge name="react" title="ReactJS" [isShadowed]="true" />
+          <app-basic-info-badge name="next" title="NextJS" [isShadowed]="true" />
+          <app-basic-info-badge name="angular" title="AngularJS" [isShadowed]="true" />
+          <app-basic-info-badge name="express" title="ExpressJS" [isShadowed]="true" />
+          <app-basic-info-badge name="nest" title="NestJS" [isShadowed]="true" />
+          <app-basic-info-badge name="fastapi" title="FastApi" [isShadowed]="true" />
+        </div>
+      </div>
+
+      <div class="primary-info__table--row"></div>
+  
+      <div class="primary-info__table--row">
+        <div class="primary-info__table--cell highlight title">Preferred languages:</div>
+        <div class="primary-info__table--cell primary-info__table--cell_data">
+          <app-basic-info-badge name="js" title="JavaScript" size="lg" />
+          <app-basic-info-badge name="ts" title="TypeScript" size="lg" />
+          <app-basic-info-badge name="python" title="Python" size="lg" />
+        </div>
+      </div>
+  
+      <div class="primary-info__table--row">
+        <div class="primary-info__table--cell highlight title">Preferred frameworks:</div>
+        <div
+          class="primary-info__table--cell primary-info__table--cell_data"
+          >
+          <app-basic-info-badge name="react" title="ReactJS" size="lg" />
+          <app-basic-info-badge name="angular" title="AngularJS" size="lg" />
+          <app-basic-info-badge name="fastapi" title="FastApi" size="lg" />
+        </div>
+      </div>
+    </div>
+
+    <mat-card class='card playwrite-ng-modern-hello'>
+      <div>👋 Hello, there!</div>
+      <div>
+        👀 I’m a web-developer, so I am doing JavaScript(TypeScript) in ReactJS
+        on the client side and NodeJS (Express/Nest) on the server side.
+      </div>
+      <div>
+        🌱 Python algorithms, backend development
+      </div>
+      <div>
+        📫 pavpavdev&#64;gmail.com
+      </div>
+      <div>🏄🏻 I always happy to meet new friends and work at interesting projects!</div>
+    </mat-card>
+  </div>
+</section>

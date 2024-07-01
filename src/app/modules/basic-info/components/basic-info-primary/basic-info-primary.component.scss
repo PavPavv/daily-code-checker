@@ -1,0 +1,76 @@
+@import '../../../../common/styles/colors.scss';
+
+.primary-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+
+  &__avatar {
+    margin: 10px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  &__username {
+    margin: 0 0 50px 0;
+    padding: 20px;
+    font-size: 52px;
+    font-weight: bold;
+  }
+
+  .content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+
+    .primary-info__table {
+      &--row {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin: 14px 0;
+      }
+
+      &--cell {
+        display: flex;
+        gap: 10px;
+        margin-right: 10px;
+        font-size: 18px;
+
+        &.title {
+          width: 220px;
+        }
+  
+        &.highlight {
+          color: $primary;
+        }
+  
+        &_data {
+          font-weight: bold;
+        }
+      }
+    }
+
+    .card {
+      width: 100%;
+      margin: 30px 0px 30px 70px;
+      padding: 20px;
+      height: 100%;
+      background: #efdbff;
+
+      & > div {
+        margin: 7px 0;
+      }
+    }
+  }
+}
