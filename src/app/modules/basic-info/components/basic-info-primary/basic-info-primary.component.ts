@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PrimaryInfoService } from '../../services/primary-info.service';
+import { select, Store } from '@ngrx/store';
 
 import { IGitUser } from '../../models';
+import * as fromBasicInfo from '../../store';
 
 @Component({
   selector: 'app-primary-info',
@@ -10,10 +11,19 @@ import { IGitUser } from '../../models';
 })
 export class BasicInfoPrimaryComponent implements OnInit {
   user: IGitUser | null = null
-  constructor(private readonly primaryInfoService: PrimaryInfoService) {}
+  constructor(private readonly store: Store) {}
 
   ngOnInit(): void {
-    this.primaryInfoService.getUserInfo().subscribe((data: IGitUser) => {
+    this.initDispatch();
+    this.getStoredData();
+  }
+
+  initDispatch(): void {
+    this.store.dispatch(fromBasicInfo.getUserInfo());
+  }
+
+  getStoredData(): void {
+    this.store.pipe(select(fromBasicInfo.selectBasicInfo)).subscribe((data) => {
       this.user = data;
     });
   }

@@ -5,11 +5,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 
 import { TooltipComponent } from './tooltip/tooltip.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
 @NgModule({
   declarations: [
+    HeaderComponent,
     TooltipComponent,
   ],
   imports: [
@@ -19,6 +21,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     MatTooltipModule,
   ],
   exports: [
+    HeaderComponent,
     TooltipComponent,
   ]
 })
