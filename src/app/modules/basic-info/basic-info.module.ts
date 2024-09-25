@@ -10,6 +10,8 @@ import { BasicInfoPrimaryComponent } from './components/basic-info-primary/basic
 import { BasicInfoBadgeComponent } from './components/basic-info-badge/basic-info-badge.component';
 import { basicInfoReducer } from './store';
 import { BasicInfoEffects } from './store/basic-info.effects';
+import { BasicInfoGreetComponent } from './components/basic-info-greet/basic-info-greet.component';
+import { BasicInfoSkillsComponent } from './components/basic-info-skills/basic-info-skills.component';
 
 
 @NgModule({
@@ -17,6 +19,8 @@ import { BasicInfoEffects } from './store/basic-info.effects';
     BasicInfoContainerComponent,
     BasicInfoPrimaryComponent,
     BasicInfoBadgeComponent,
+    BasicInfoGreetComponent,
+    BasicInfoSkillsComponent,
   ],
   imports: [
     CommonModule,

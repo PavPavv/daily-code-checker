@@ -1,10 +1,16 @@
+@import '../../../../common/styles/colors.scss';
+
 .basic-info-badge {
   position: relative;
   display: block;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid $borderColor;
+  background: #ffffff;
   
   &.lg {
-    width: 26px;
-    height: 26px;
+    width: 36px;
+    height: 36px;
   }
 
   &.sm {
@@ -14,7 +20,7 @@
 
 
   img {
-     max-width: 100%;
+     width: 100%;
   }
 
   .overlay {

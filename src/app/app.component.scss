@@ -1,10 +1,11 @@
 @import './common/styles/colors.scss';
+@import './common/styles/variables.scss';
 
 .wrapper {
   min-height: 100vh;
   background: $mainBackground;
 
-  @media screen and (max-width: 810px) {
+  @media screen and (max-width: $screen-tablet) {
     min-height: 100%;
   }
 }

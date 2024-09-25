@@ -29,60 +29,12 @@
       }
 
       .username {
-        margin: 16px 0 50px 0;
+        margin-top: 16px;
         font-size: $font-large;
         font-weight: bold;
         text-align: center;
       }
     }
   }
-
-  .content {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    width: 100%;
-
-    @media screen and (max-width: $screen-laptop) {
-      align-items: center;
-      justify-content: center;
-    }
-
-    .primary-info__table {
-      &--row {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        margin: 6px 0;
-      }
-
-      &--cell {
-        display: flex;
-        gap: 10px;
-        margin-right: 10px;
-        font-size: $font-laptop;
-
-        @media screen and (max-width: $screen-laptop) {
-          margin-right: 6px;
-          font-size: $font-tablet;
-        }
-
-        &.title {
-          width: 180px;
-
-          @media screen and (max-width: $screen-laptop) {
-            width: 160px;
-          }
-        }
-  
-        &.highlight {
-          color: $primary;
-        }
-  
-        &_data {
-          font-weight: bold;
-        }
-      }
-    }
-  }
 }
+  

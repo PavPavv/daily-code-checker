@@ -1,0 +1,19 @@
+@import '../../../../common/styles/variables.scss';
+
+.basic {
+  &-greet {
+    font-size: $font-laptop;
+
+    @media screen and (max-width: $screen-laptop) {
+      font-size: $font-tablet;
+    }
+
+    &__item {
+      margin-bottom: 15px;
+
+      span {
+          margin-right: 16px;
+      }
+    }
+  }
+}
