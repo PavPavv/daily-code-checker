@@ -12,12 +12,16 @@ import { AppComponent } from './app.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { SharedComponentsModule } from './modules/shared/ui/shared-components.module';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundPageComponent,
     MainPageComponent,
+    AdminPageComponent,
+    LoginPageComponent,
   ],
   imports: [
     BrowserModule,

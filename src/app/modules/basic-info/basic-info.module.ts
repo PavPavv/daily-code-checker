@@ -16,7 +16,7 @@ import { BasicInfoEffects } from './store/basic-info.effects';
   declarations: [
     BasicInfoContainerComponent,
     BasicInfoPrimaryComponent,
-    BasicInfoBadgeComponent
+    BasicInfoBadgeComponent,
   ],
   imports: [
     CommonModule,

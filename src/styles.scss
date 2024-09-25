@@ -9,17 +9,10 @@ body { font-family: Roboto, "Helvetica Neue", sans-serif; }
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  color: $mainText;
-}
-
-.honk {
-  font-family: "Honk", system-ui;
-  font-optical-sizing: auto;
-  font-weight: 400;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
   font-style: normal;
-  font-variation-settings:
-    "MORF" 17,
-    "SHLN" 25;
+  color: $mainText;
 }
 
 .ubuntu-light {
@@ -68,11 +61,4 @@ body { font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-family: "Ubuntu", sans-serif;
   font-weight: 700;
   font-style: italic;
-}
-
-.playwrite-ng-modern-hello {
-  font-family: "Playwrite NG Modern", cursive;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
 }

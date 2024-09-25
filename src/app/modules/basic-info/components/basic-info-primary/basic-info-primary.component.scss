@@ -2,8 +2,6 @@
 @import '../../../../common/styles/variables.scss';
 
 .primary-info {
-  padding-top: 40px;
-
   @media screen and (max-width: $screen-laptop) {
     display: flex;
     flex-direction: column;
@@ -19,14 +17,14 @@
 
     .avatar-wrapper {
       .avatar {
-        width: 150px;
-        height: 150px;
+        width: 130px;
+        height: 130px;
         border-radius: 50%;
         overflow: hidden;
     
         img {
-          width: 150px;
-          height: 150px;
+          width: 130px;
+          height: 130px;
         }
       }
 
@@ -85,35 +83,6 @@
           font-weight: bold;
         }
       }
-    }
-  }
-}
-
-.card {
-  width: 100%;
-  max-width: 800px;
-  padding: 20px;
-  height: 100%;
-  background: #efdbff;
-
-  & > div {
-    margin: 7px 0;
-
-    @media screen and (max-width: $screen-laptop) {
-      margin: 24px 0;
-    }
-  }
-
-  @media screen and (max-width: $screen-laptop) {
-    display: none;
-  }
-
-  &-mobile {
-    display: none;
-    margin-top: 30px;
-
-    @media screen and (max-width: $screen-laptop) {
-      display: block;
     }
   }
 }
