@@ -66,3 +66,22 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   font-style: italic;
 }
+
+.row {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+
+    @media screen and (max-width: $screen-laptop) {
+      flex-direction: column;
+    }
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}  

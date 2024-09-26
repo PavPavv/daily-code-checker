@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BasicInfoModule } from './modules/basic-info/basic-info.module';
+import { DailyStatModule } from './modules/daily-stat/daily-stat.module';
 
 import { AppComponent } from './app.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
@@ -32,6 +33,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
     EffectsModule.forRoot(),
     SharedComponentsModule,
     BasicInfoModule,
+    DailyStatModule,
   ],
   bootstrap: [AppComponent],
 })

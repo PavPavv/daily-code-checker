@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-block',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './block.component.scss'
 })
 export class BlockComponent {
-
+  @Input() isFull: boolean = false;
 }

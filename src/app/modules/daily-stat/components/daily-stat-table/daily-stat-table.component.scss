@@ -1,0 +1,14 @@
+:host ::ng-deep {
+  width: 100%;
+  display: block;
+
+  .daily-code {
+    &__wrapper {
+      width: 100%;
+    }
+  
+    &__table {
+      width: 100%;
+    }
+  }
+}
