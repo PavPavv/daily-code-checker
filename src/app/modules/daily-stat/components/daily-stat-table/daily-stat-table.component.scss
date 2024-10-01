@@ -9,6 +9,35 @@
   
     &__table {
       width: 100%;
+      display: flex;
+      gap: 100px;
+    }
+
+    &__data {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 4px;
+      width: 100%;
+      max-width: 1010px;
+      height: 150px;
+      padding: 10px;
+      overflow-x: auto;
+
+      .cell {
+        display: flex;
+        width: 14px;
+        height: 14px;
+        // border: 1px solid white;
+      }
+
+      .day {
+        width: 14px;
+        height: 14px;
+        border-radius: 3px;
+        border: 1px solid white;
+        background: gray;
+      }
     }
   }
 }

@@ -8,7 +8,9 @@
         </div>
       </div>
       <div class="daily-code__data">
-    
+        <div class="cell" *ngFor="let cell of cells">
+          <div *ngIf="cell.isDay === 'yes'" class="day"></div>
+        </div>
       </div>
     </div>
   </app-block>
