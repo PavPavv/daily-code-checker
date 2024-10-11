@@ -1,10 +1,19 @@
+// Color scheme
+
 $white: #ffffff;
-$black: #000000;
-$purple: #722ed1;
-$dark: #1c1c1c;
-$semiDark: #272727;
-$alphaGray: #aeadad71;
 $alphaGrayLight: #ffffff9c;
+$alphaGray: #aeadad71;
+$semiDark: #272727;
+$dark: #1c1c1c;
+$black: #000000;
+
+$purple: #722ed1;
+$rayGreen: #D8FA24;
+
+
+
+// Color use
+
 
 $mainBackground: $dark;
 $blockBg: $semiDark;
@@ -12,5 +21,6 @@ $mainText: $white;
 $secondText: $alphaGray;
 $unfocusedText: $alphaGrayLight;
 $primary: $purple;
+$highlight: $rayGreen;
 $borderColor: $alphaGray;
-
+$darkElementColor: $black;

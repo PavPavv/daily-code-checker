@@ -1,10 +1,19 @@
 <div class="daily-code__wrapper">
-  <app-block>
+  <app-block [removeHover]="true">
     <div class="daily-code__table">
       <div class="daily-code__controls">
-        <!-- TODO: Create dynamically -->
-        <div *ngFor="let year of getYears()">
-          <span>{{ year }}</span>
+        <div 
+          *ngFor="let year of getYears(); let i = index;"
+          class="daily-code__year"
+        >
+          <button
+            mat-button
+            (click)="onClickYear(year, i)"
+            [ngClass]="{'daily-code__year-btn--active': activeBtnIdx === i}"
+            class="daily-code__year-btn"
+          >
+            {{ year }}
+          </button>
         </div>
       </div>
       <div class="daily-code__data">

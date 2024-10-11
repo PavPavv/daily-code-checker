@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class BlockComponent {
   @Input() isFull: boolean = false;
+  @Input() removeHover: boolean = false;
 }

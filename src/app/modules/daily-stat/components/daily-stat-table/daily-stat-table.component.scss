@@ -1,3 +1,5 @@
+@import '../../../../common/styles/colors.scss';
+
 :host ::ng-deep {
   width: 100%;
   display: block;
@@ -11,6 +13,39 @@
       width: 100%;
       display: flex;
       gap: 100px;
+    }
+
+    &__controls {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    &__year {
+
+      &-btn {
+        padding: 4px 12px;
+        border: 1px solid $blockBg;
+        border-radius: 30px;
+        color: $unfocusedText;
+        background: $darkElementColor;
+        cursor: pointer;
+        transition: color ease .5s;
+
+        &:hover {
+          color: $mainText;
+        }
+
+        &--active {
+          border: 1px solid $rayGreen;
+          color: $darkElementColor;
+          background: $rayGreen;
+
+          &:hover {
+            color: $darkElementColor;
+          }
+        }
+      }
     }
 
     &__data {
@@ -28,15 +63,14 @@
         display: flex;
         width: 14px;
         height: 14px;
-        // border: 1px solid white;
       }
 
       .day {
         width: 14px;
         height: 14px;
-        border-radius: 3px;
-        border: 1px solid white;
-        background: gray;
+        border-radius: 4px;
+        border: 1px solid $unfocusedText;
+        background: $borderColor;
       }
     }
   }
