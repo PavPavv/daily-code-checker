@@ -1,12 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { MAX_AVAILABLE_YEAR_CELLS } from '../../../../constants';
 import { SupabaseService } from '../../../shared/services/supabase/supabase.service';
-import { IWorkingNote } from '../../models';
+import { Store } from '@ngrx/store';
+import * as fromDailyStat from '../../store';
+import { DailyStat } from '../../../../common/models';
+import { getYearDayNumber } from '../../../../common/utils';
+import { Cell } from '../../models';
 
-type Cell = {
-  id: number;
-  isDay: 'yes' | 'no';
-}
+const GOOD_WORK_HOURS_AMOUNT = 4;
+const NORMAL_WORK_HOURS_AMOUNT = 2;
 
 @Component({
   selector: 'app-daily-stat-table',
@@ -15,40 +18,47 @@ type Cell = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DailyStatTableComponent implements OnInit {
-  private _years: string[] = ['2020', '2021',  '2022', '2023', '2024'];
-  private _data: IWorkingNote[] = []
+  @Input() years: string[] = [];
+  
+  private _currentYearInitial: string = new Date().getFullYear().toString();
+  // TODO: add proper type
+  private _data: DailyStat[] = [];
 
   cells: Cell[] = new Array(MAX_AVAILABLE_YEAR_CELLS).fill({});
   activeBtnIdx = 0;
   isError: boolean = false;
   isLoading: boolean = false;
+  shortWeekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+  private _actualYearBehaviorSubject =
+    new BehaviorSubject<string>(this._currentYearInitial);
 
   constructor(
+    private cdr: ChangeDetectorRef,
+    private readonly store: Store,
     private readonly supabaseService: SupabaseService
-  ) {}
+  ) {
+  }
 
-  async ngOnInit(): Promise<void> {
-    this._fillCells(this._years[0]);
-    console.log(this.cells);
+  ngOnInit(): void {
+    this._generateYearOverview();
 
-    // TODO: Supabase
-    // this._getData();
-    try {
-      this.isLoading = true;
-      const response = await this.supabaseService.getWorkingNotes();
-      if (response && response?.data) {
-        console.log('WTF', response?.data);
-        this._data = response?.data;
-        this.isError = false;
-      } else if (response?.error) {
-        console.log('An error occurred while fetching working notes');
-        this.isError = true;
+    this._actualYearBehaviorSubject.subscribe((pickedYear) => {
+      if (pickedYear) {
+        this.store.dispatch(fromDailyStat.getDailyOverviewByYear({ year: pickedYear }));
       }
-    } catch(error) {
-      console.log('An error occurred while fetching working notes', error);
-      this.isError = true;
-    } finally {
-      this.isLoading = false;
+    });
+
+    this.store.select(fromDailyStat.selectDailyStatisticsByYear).subscribe((data) => {
+      if (data && data.length) {
+        this._addStatsDataToCells(data);
+      }
+    });
+  }
+
+  private _generateYearOverview(): void {
+    if (this.years && this.years.length) {
+      this._fillCells(this.years[this.years.length - 1]);
     }
   }
 
@@ -67,12 +77,12 @@ export class DailyStatTableComponent implements OnInit {
       if (i >= firstDayOfYearRu - 1 && i < totalDaysInYear ) {
         return {
           id: i,
-          isDay: 'yes',
+          isDay: true,
         };
       } else {
         return {
           id: i,
-          isDay: 'no',
+          isDay: false,
         };
       }
     })
@@ -83,34 +93,52 @@ export class DailyStatTableComponent implements OnInit {
         if (i === this.cells.length - 1) {
           this.cells[i] = {
             id: i,
-            isDay: 'yes',
+            isDay: true,
           };
         }  
       }
     }
   }
 
+  private _addStatsDataToCells(data: DailyStat[]): void {
+    const firstDataDayIdx = getYearDayNumber(new Date(data[0].date)) - 1;
+    const emptyStartCells = this.cells.slice(0, firstDataDayIdx);
+    const restDaysCells = this.cells.slice(firstDataDayIdx).map((cell: Cell, i: number) => {
+      return {
+        ...cell,
+        codeHours: data[i]?.coding_hours ?? 0,
+        date: data[i]?.date,
+      }
+    });
+    const result = [...emptyStartCells, ...restDaysCells];
+    this.cells = result;
+    this.cdr.markForCheck();
+  }
+
   private _calcYearDays(year: number): number {
     return ((year % 4 === 0 && year % 100 > 0) || year % 400 === 0) ? 366 : 365;
   }
 
-  // private _getData() {
-  //   this.supabaseService.fetchWorkingNotes();
-  //   if (this.supabaseService.isReady()) {
-  //     console.log('WTF???!!!');
-  //     this.supabaseService.getWorkingNotes().subscribe((data) => {
-  //       this._data = data;
-  //       console.log('???', data);
-  //       console.log('_data', this._data);
-  //     });
-  //   }
-  // }
+  isGoodWork(workHours = 0) {
+    if (workHours >= GOOD_WORK_HOURS_AMOUNT) {
+      return true;
+    }
+    return false;
+  }
+
+  isNormalWork(workHours = 0) {
+    if (workHours >= NORMAL_WORK_HOURS_AMOUNT && workHours < GOOD_WORK_HOURS_AMOUNT) {
+      return true;
+    }
+    return false;
+  }
 
   getYears(): string[] {
-    return this._years.sort((a: string, b: string) => Number(b) - Number(a));
+    return this.years.sort((a: string, b: string) => Number(b) - Number(a));
   }
 
   onClickYear(year: string, idx: number) {
+    this._actualYearBehaviorSubject.next(year);
     this.activeBtnIdx = idx;
     this._fillCells(year);
   }

@@ -16,9 +16,24 @@
           </button>
         </div>
       </div>
+      <div class="daily-code__weekdays">
+        <div
+          *ngFor="let day of shortWeekDays"
+          class="daily-code__weekday"
+        >
+          <div>{{ day }}</div>
+        </div>
+      </div>
       <div class="daily-code__data">
         <div class="cell" *ngFor="let cell of cells">
-          <div *ngIf="cell.isDay === 'yes'" class="day"></div>
+          <div
+            *ngIf="cell.isDay"
+            class="day"
+            [ngClass]="{
+              'day--good': isGoodWork(cell.codeHours),
+              'day--normal': isNormalWork(cell.codeHours)
+            }"
+          ></div>
         </div>
       </div>
     </div>

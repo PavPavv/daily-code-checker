@@ -30,8 +30,6 @@ const reducer = createReducer(
   }),
 
   on(actions.getUserInfoError, (state, { error }) => {
-    // TODO: remove after debug
-    console.log('REDUCER actions.getUserInfoError error', error)
     return {
       ...state,
       isLoading: false,

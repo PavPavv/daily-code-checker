@@ -7,6 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
   ngOnInit(): void {
-    console.log('main page here!')
+    // console.log('main page here!')
   }
 }

@@ -9,18 +9,22 @@ $black: #000000;
 
 $purple: #722ed1;
 $rayGreen: #D8FA24;
+$softGreen: #1F890E;
+$softGreenAlpha: #768773;
+$terminalGreen: #43d22c;
 
 
 
 // Color use
-
 
 $mainBackground: $dark;
 $blockBg: $semiDark;
 $mainText: $white;
 $secondText: $alphaGray;
 $unfocusedText: $alphaGrayLight;
+$highlightText: $terminalGreen;
 $primary: $purple;
 $highlight: $rayGreen;
 $borderColor: $alphaGray;
 $darkElementColor: $black;
+$activeBg: $softGreen;

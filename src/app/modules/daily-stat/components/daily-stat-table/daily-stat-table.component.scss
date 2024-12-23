@@ -1,4 +1,5 @@
 @import '../../../../common/styles/colors.scss';
+@import '../../../../common/styles/variables.scss';
 
 :host ::ng-deep {
   width: 100%;
@@ -12,7 +13,6 @@
     &__table {
       width: 100%;
       display: flex;
-      gap: 100px;
     }
 
     &__controls {
@@ -48,6 +48,16 @@
       }
     }
 
+    &__weekdays {
+      margin: 4px 10px 0 30px;
+
+      div {
+        line-height: 20px;
+        font-size: $font-s;
+        color: $highlightText;
+      }
+    }
+
     &__data {
       display: flex;
       flex-direction: column;
@@ -61,16 +71,26 @@
 
       .cell {
         display: flex;
-        width: 14px;
-        height: 14px;
+        width: 15px;
+        height: 15px;
       }
 
       .day {
-        width: 14px;
-        height: 14px;
-        border-radius: 4px;
+        width: 15px;
+        height: 15px;
+        border-radius: 3px;
         border: 1px solid $unfocusedText;
         background: $borderColor;
+
+        &--good {
+          border-color: $highlightText;
+          background: $activeBg;
+        }
+
+        &--normal {
+          border-color: $highlightText;
+          // background: $softGreenAlpha;
+        }
       }
     }
   }
