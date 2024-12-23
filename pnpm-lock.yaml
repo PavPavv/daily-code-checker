@@ -38,6 +38,9 @@ dependencies:
   '@ngrx/effects':
     specifier: ^18.0.1
     version: 18.0.1(@angular/core@17.3.11)(@ngrx/store@18.0.1)(rxjs@7.8.1)
+  '@ngrx/entity':
+    specifier: ^19.0.0
+    version: 19.0.0(@angular/core@17.3.11)(@ngrx/store@18.0.1)(rxjs@7.8.1)
   '@ngrx/store':
     specifier: ^18.0.1
     version: 18.0.1(@angular/core@17.3.11)(rxjs@7.8.1)
@@ -64,6 +67,9 @@ devDependencies:
   '@angular/compiler-cli':
     specifier: ^17.1.0
     version: 17.3.11(@angular/compiler@17.3.11)(typescript@5.3.3)
+  '@ngrx/schematics':
+    specifier: ^19.0.0
+    version: 19.0.0
   '@types/jasmine':
     specifier: ~5.1.0
     version: 5.1.4
@@ -3051,6 +3057,19 @@ packages:
       tslib: 2.6.3
     dev: false
 
+  /@ngrx/entity@19.0.0(@angular/core@17.3.11)(@ngrx/store@18.0.1)(rxjs@7.8.1):
+    resolution: {integrity: sha512-qHMgR46YYm1ysEe2hwwTj5Gq6aAg9AxLLMtnBtsUWG6+UKk9irSCl6EoT7QteUGYImNK6LO1wiwapoNgFMr8dg==}
+    peerDependencies:
+      '@angular/core': ^19.0.0
+      '@ngrx/store': 19.0.0
+      rxjs: ^6.5.3 || ^7.5.0
+    dependencies:
+      '@angular/core': 17.3.11(rxjs@7.8.1)(zone.js@0.14.7)
+      '@ngrx/store': 18.0.1(@angular/core@17.3.11)(rxjs@7.8.1)
+      rxjs: 7.8.1
+      tslib: 2.6.3
+    dev: false
+
   /@ngrx/operators@18.0.1(rxjs@7.8.1):
     resolution: {integrity: sha512-M+QMrHNKgcuiLaRGZxJ4aQi5/OCRfKC4+T/63dsHyLFZ53/FFpF6a/ytSO1Q+tzOplZ5o99S+i8FVaZqNQ3LmQ==}
     peerDependencies:
@@ -3059,6 +3078,10 @@ packages:
       rxjs: 7.8.1
       tslib: 2.6.3
     dev: false
+
+  /@ngrx/schematics@19.0.0:
+    resolution: {integrity: sha512-lPgTv7wIS5uuhxkzi418pnMwMKAPs4ILSxJHNRClAv4N8dVyd/2C4aVX8vpZjtaWEVR/qisiHqbGl2pPGfIYJw==}
+    dev: true
 
   /@ngrx/store@18.0.1(@angular/core@17.3.11)(rxjs@7.8.1):
     resolution: {integrity: sha512-TxZiQz06fGSxQ0clYfzkH4NCr6tfa8A7zqzkvvOOK1ZezOHHsk0vZJJtgxQcKUqAQxPpbp5+Z7YR8P/Fuid7GQ==}
