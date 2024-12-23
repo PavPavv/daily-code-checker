@@ -1,6 +1,6 @@
 <div class="daily-code__wrapper">
-  <app-block [removeHover]="true" class="daily-code__block">
-    <div *ngIf="!isLoading; else loading" class="daily-code__table">
+  <app-block [removeHover]="true">
+    <div class="daily-code__table">
       <div class="daily-code__controls">
         <div 
           *ngFor="let year of getYears(); let i = index;"
@@ -22,10 +22,5 @@
         </div>
       </div>
     </div>
-    <ng-template #loading>
-      <div>
-        Loading... {{ isLoading }}
-      </div>
-    </ng-template>
   </app-block>
 </div>

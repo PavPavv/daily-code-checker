@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MAX_AVAILABLE_YEAR_CELLS } from '../../../../constants';
 import { SupabaseService } from '../../../shared/services/supabase/supabase.service';
 import { IWorkingNote } from '../../models';
-import { TWorkingNoteResponse, TWorkingNoteResponseList } from '../../models/workingNote';
 
 type Cell = {
   id: number;
@@ -13,10 +12,11 @@ type Cell = {
   selector: 'app-daily-stat-table',
   templateUrl: './daily-stat-table.component.html',
   styleUrl: './daily-stat-table.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DailyStatTableComponent implements OnInit {
-  private _years: string[] = this._generateYearsFromToCurrent();
-  private _data: TWorkingNoteResponseList = []
+  private _years: string[] = ['2020', '2021',  '2022', '2023', '2024'];
+  private _data: IWorkingNote[] = []
 
   cells: Cell[] = new Array(MAX_AVAILABLE_YEAR_CELLS).fill({});
   activeBtnIdx = 0;
@@ -27,33 +27,19 @@ export class DailyStatTableComponent implements OnInit {
     private readonly supabaseService: SupabaseService
   ) {}
 
-  ngOnInit() {
-    this._getFetchedData(this._years[this._years.length - 1]);
-  }
+  async ngOnInit(): Promise<void> {
+    this._fillCells(this._years[0]);
+    console.log(this.cells);
 
-  private _generateYearsFromToCurrent(from = '2020'): string[] {
-    const currentYear = new Date().getFullYear();
-    const years: string[] = [];
-    for (let i = Number(from); i <= currentYear; i++) {
-      years.push(i.toString());
-    }
-    return years;
-  }
-
-  private async _getFetchedData(year: string): Promise<void> {
+    // TODO: Supabase
+    // this._getData();
     try {
       this.isLoading = true;
-      const response = await this.supabaseService.getWorkingNotesByYear(year);
+      const response = await this.supabaseService.getWorkingNotes();
       if (response && response?.data) {
-        // TODO: add dynamic years
-        this._fillCells(this._years[0]);
-        this._data = response?.data.sort((
-          a: TWorkingNoteResponse, b: TWorkingNoteResponse
-        ) => {
-          return new Date(a.date).valueOf() - new Date(b.date).valueOf();
-        });
+        console.log('WTF', response?.data);
+        this._data = response?.data;
         this.isError = false;
-        this.addDataToTable(this._years[0]);
       } else if (response?.error) {
         console.log('An error occurred while fetching working notes');
         this.isError = true;
@@ -108,6 +94,18 @@ export class DailyStatTableComponent implements OnInit {
     return ((year % 4 === 0 && year % 100 > 0) || year % 400 === 0) ? 366 : 365;
   }
 
+  // private _getData() {
+  //   this.supabaseService.fetchWorkingNotes();
+  //   if (this.supabaseService.isReady()) {
+  //     console.log('WTF???!!!');
+  //     this.supabaseService.getWorkingNotes().subscribe((data) => {
+  //       this._data = data;
+  //       console.log('???', data);
+  //       console.log('_data', this._data);
+  //     });
+  //   }
+  // }
+
   getYears(): string[] {
     return this._years.sort((a: string, b: string) => Number(b) - Number(a));
   }
@@ -115,12 +113,5 @@ export class DailyStatTableComponent implements OnInit {
   onClickYear(year: string, idx: number) {
     this.activeBtnIdx = idx;
     this._fillCells(year);
-    this._getFetchedData(year);
-  }
-
-  addDataToTable(year: string) {
-    console.log('addDataToTable', this._data);
-    console.log('addDataToTable this.cells', this.cells);
-
   }
 }

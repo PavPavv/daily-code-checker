@@ -107,10 +107,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "schematicCollections": [
-      "@ngrx/schematics"
-    ]
   }
 }
