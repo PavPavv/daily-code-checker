@@ -26,14 +26,16 @@
       </div>
       <div class="daily-code__data">
         <div class="cell" *ngFor="let cell of cells">
-          <div
-            *ngIf="cell.isDay"
-            class="day"
-            [ngClass]="{
-              'day--good': isGoodWork(cell.codeHours),
-              'day--normal': isNormalWork(cell.codeHours)
-            }"
-          ></div>
+          <app-tooltip text="{{ cell.date }}">
+            <div
+              *ngIf="cell.isDay"
+              class="day"
+              [ngClass]="{
+                'day--good': isGoodWork(cell.codeHours),
+                'day--normal': isNormalWork(cell.codeHours)
+              }"
+            ></div>
+          </app-tooltip>
         </div>
       </div>
     </div>

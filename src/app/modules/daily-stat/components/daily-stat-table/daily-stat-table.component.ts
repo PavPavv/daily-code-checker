@@ -102,8 +102,9 @@ export class DailyStatTableComponent implements OnInit {
 
   private _addStatsDataToCells(data: DailyStat[]): void {
     const firstDataDayIdx = getYearDayNumber(new Date(data[0].date)) - 1;
-    const emptyStartCells = this.cells.slice(0, firstDataDayIdx);
-    const restDaysCells = this.cells.slice(firstDataDayIdx).map((cell: Cell, i: number) => {
+    const t = firstDataDayIdx === 0 ? firstDataDayIdx : firstDataDayIdx - 1;
+    const emptyStartCells = this.cells.slice(0, t);
+    const restDaysCells = this.cells.slice(t).map((cell: Cell, i: number) => {
       return {
         ...cell,
         codeHours: data[i]?.coding_hours ?? 0,
