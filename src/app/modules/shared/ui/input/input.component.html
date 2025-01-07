@@ -1,0 +1,15 @@
+<ng-container *ngIf="ctrl">
+  <mat-form-field>
+    @if (name) {
+      <mat-label>{{ name }}</mat-label>
+    }
+    <input type="{{ type }}" matInput [formControl]="ctrl"
+           placeholder="Ex. pat@example.com">
+    @if (ctrl.hasError('email') && !ctrl.hasError('required')) {
+      <mat-error>Please enter a valid email address</mat-error>
+    }
+    @if (ctrl.hasError('required')) {
+      <mat-error>Email is <strong>required</strong></mat-error>
+    }
+  </mat-form-field>
+</ng-container>

@@ -1,0 +1,30 @@
+.not-found {
+  &__figure {
+    position: relative;
+    width: 310px;
+    height: 240px;
+
+    img {
+      width: 100%;
+    }
+
+    .gif-container {
+      position: absolute;
+      top: 32px;
+      left: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 173px;
+      height: 134px;
+      background: #000;
+      overflow: hidden;
+      box-shadow: rgba(255, 255, 255, 0.25) 0px 54px 55px, rgba(255, 255, 255, 0.12) 0px -12px 30px, rgba(255, 255, 255, 0.12) 0px 4px 6px, rgba(255, 255, 255, 0.17) 0px 12px 13px, rgba(255, 255, 255, 0.09) 0px -3px 5px;
+      border-radius: 16px;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

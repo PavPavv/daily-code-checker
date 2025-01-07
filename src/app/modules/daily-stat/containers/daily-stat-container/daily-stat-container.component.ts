@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
   styleUrl: './daily-stat-container.component.scss'
 })
 export class DailyStatContainerComponent implements OnInit {
-  public years: string[] = ['2020', '2021',  '2022', '2023', '2024'];
+  public years: string[] = ['2020', '2021',  '2022', '2023', '2024', '2025'];
 
   constructor (private readonly store: Store) {}
 

@@ -1,0 +1,13 @@
+@import '../../common/styles/colors.scss';
+
+.login-form {
+  &__wrapper {
+    width: 300px;
+
+    h1 {
+      color: $mainText;
+      text-align: center;
+      line-height: 90px;
+    }
+  }
+}

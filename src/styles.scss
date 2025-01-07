@@ -66,6 +66,17 @@ h1, h2, h3, h4, h5, h6 {
   font-style: italic;
 }
 
+.central {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.full-height {
+  height: calc(100vh - 90px);
+}
+
 .row {
   display: flex;
   gap: 20px;
@@ -83,4 +94,4 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   gap: 20px;
   height: 100%;
-}  
+} 

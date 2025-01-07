@@ -12,4 +12,5 @@ export type Cell = {
   codeHours?: number;
   date?: string;
   uid?: number;
+  yearDayNum?: number;
 }

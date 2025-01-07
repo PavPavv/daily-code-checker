@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { MAX_AVAILABLE_YEAR_CELLS } from '../../../../constants';
-import { SupabaseService } from '../../../shared/services/supabase/supabase.service';
 import { Store } from '@ngrx/store';
 import * as fromDailyStat from '../../store';
 import { DailyStat } from '../../../../common/models';
-import { getYearDayNumber } from '../../../../common/utils';
+import { dayOfYear, getYYYYMMDDByDayNum } from '../../../../common/utils';
 import { Cell } from '../../models';
 
 const GOOD_WORK_HOURS_AMOUNT = 4;
-const NORMAL_WORK_HOURS_AMOUNT = 2;
+const NORMAL_WORK_HOURS_AMOUNT = 1;
 
 @Component({
   selector: 'app-daily-stat-table',
@@ -21,10 +20,8 @@ export class DailyStatTableComponent implements OnInit {
   @Input() years: string[] = [];
   
   private _currentYearInitial: string = new Date().getFullYear().toString();
-  // TODO: add proper type
-  private _data: DailyStat[] = [];
 
-  cells: Cell[] = new Array(MAX_AVAILABLE_YEAR_CELLS).fill({});
+  cells: Cell[] = [];
   activeBtnIdx = 0;
   isError: boolean = false;
   isLoading: boolean = false;
@@ -36,12 +33,11 @@ export class DailyStatTableComponent implements OnInit {
   constructor(
     private cdr: ChangeDetectorRef,
     private readonly store: Store,
-    private readonly supabaseService: SupabaseService
   ) {
   }
 
   ngOnInit(): void {
-    this._generateYearOverview();
+    this._generateInitialYearOverview();
 
     this._actualYearBehaviorSubject.subscribe((pickedYear) => {
       if (pickedYear) {
@@ -56,28 +52,31 @@ export class DailyStatTableComponent implements OnInit {
     });
   }
 
-  private _generateYearOverview(): void {
+  private _generateInitialYearOverview(): void {
     if (this.years && this.years.length) {
       this._fillCells(this.years[this.years.length - 1]);
     }
   }
 
-  private _fillCells(year: string): void {
-    let totalDaysInYear = this._calcYearDays(Number(year));
+  private _resetCells(): void {
+    this.cells = new Array(MAX_AVAILABLE_YEAR_CELLS).fill({});
+  }
 
+  // Main method to generate year day cells
+  private _fillCells(year: string): void {
+    this._resetCells();
+
+    let totalDaysInYear = this._calcYearDays(Number(year));
     const firstDayOfYear = new Date(`${year}-01-01`).getDay();
     const firstDayOfYearRu = firstDayOfYear === 0 ? 7 : firstDayOfYear;
-    const lastDayOfYear = new Date(`${year}-12-31`).getDay();
-
-    if (lastDayOfYear === 0) {
-      totalDaysInYear = this._calcYearDays(Number(year)) - 1;
-    }
+    const fullDaysInYearWithOffset = (totalDaysInYear - 1) + (firstDayOfYearRu - 1);
 
     const daysArr: Cell[] = this.cells.map((_, i) => {
-      if (i >= firstDayOfYearRu - 1 && i < totalDaysInYear ) {
+      if ((i >= firstDayOfYearRu - 1) && (i <= fullDaysInYearWithOffset)) {
         return {
           id: i,
           isDay: true,
+          yearDayNum: (i - firstDayOfYearRu) + 2,
         };
       } else {
         return {
@@ -87,33 +86,49 @@ export class DailyStatTableComponent implements OnInit {
       }
     })
     this.cells = daysArr;
-
-    if (lastDayOfYear === 0) {
-      for (let i = 0; i < this.cells.length; i++) {
-        if (i === this.cells.length - 1) {
-          this.cells[i] = {
-            id: i,
-            isDay: true,
-          };
-        }  
-      }
-    }
   }
 
   private _addStatsDataToCells(data: DailyStat[]): void {
-    const firstDataDayIdx = getYearDayNumber(new Date(data[0].date)) - 1;
-    const t = firstDataDayIdx === 0 ? firstDataDayIdx : firstDataDayIdx - 1;
-    const emptyStartCells = this.cells.slice(0, t);
-    const restDaysCells = this.cells.slice(t).map((cell: Cell, i: number) => {
-      return {
-        ...cell,
-        codeHours: data[i]?.coding_hours ?? 0,
-        date: data[i]?.date,
+    if (data && data.length) {
+      // TODO: remove year constant after backend data completed
+      if (Number(this._actualYearBehaviorSubject.getValue()) > 2023) {
+        const dataYearStartWeekDay = new Date(data[0]?.date).getDay();
+        const datesBeginIdx = dataYearStartWeekDay === 0 ? 7 : dataYearStartWeekDay - 1;
+        const emptyStartCells = this.cells.slice(0, datesBeginIdx);
+        const restDaysCells = this.cells.slice(datesBeginIdx).map((cell: Cell, i: number) => {
+          return {
+            ...cell,
+            codeHours: data[i]?.coding_hours ?? 0,
+            date: data[i]?.date,
+          }
+        });
+        const result = [...emptyStartCells, ...restDaysCells];
+        this.cells = result;
+        this.cdr.markForCheck();
+
+      // TODO: remove year constant after backend data completed
+      } else if (Number(this._actualYearBehaviorSubject.getValue()) === 2023) {
+        const firstWeekDayInYearNum = new Date('2023-01-01').getDay();
+        const firstWeekDayInYear = firstWeekDayInYearNum ? firstWeekDayInYearNum : 7;
+        const firstDataDate = data[0]?.date;
+        if (firstDataDate) {
+          const startIdx = (dayOfYear(new Date(firstDataDate)) - 1) + (firstWeekDayInYear - 1);
+          if (startIdx) {
+            const emptyStartCells = this.cells.slice(0, startIdx);
+            const restDaysCells = this.cells.slice(startIdx).map((cell: Cell, i: number) => {
+              return {
+                ...cell,
+                codeHours: data[i]?.coding_hours ?? 0,
+                date: data[i]?.date,
+              }
+            });
+            const result = [...emptyStartCells, ...restDaysCells];
+            this.cells = result;
+            this.cdr.markForCheck();
+          }
+        }
       }
-    });
-    const result = [...emptyStartCells, ...restDaysCells];
-    this.cells = result;
-    this.cdr.markForCheck();
+    }
   }
 
   private _calcYearDays(year: number): number {
@@ -138,7 +153,13 @@ export class DailyStatTableComponent implements OnInit {
     return this.years.sort((a: string, b: string) => Number(b) - Number(a));
   }
 
+  getCellDate(cell: Cell): string {
+    const pickedYear = this._actualYearBehaviorSubject.getValue();
+    return getYYYYMMDDByDayNum(pickedYear, cell?.yearDayNum);
+  }
+
   onClickYear(year: string, idx: number) {
+    if (year === this._actualYearBehaviorSubject.getValue()) return;
     this._actualYearBehaviorSubject.next(year);
     this.activeBtnIdx = idx;
     this._fillCells(year);

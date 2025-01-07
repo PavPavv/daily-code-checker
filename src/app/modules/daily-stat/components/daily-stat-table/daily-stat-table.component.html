@@ -26,7 +26,7 @@
       </div>
       <div class="daily-code__data">
         <div class="cell" *ngFor="let cell of cells">
-          <app-tooltip text="{{ cell.date }}">
+          <app-tooltip text="{{ getCellDate(cell) }}">
             <div
               *ngIf="cell.isDay"
               class="day"

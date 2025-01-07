@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BasicInfoModule } from './modules/basic-info/basic-info.module';
@@ -15,6 +16,7 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { SharedComponentsModule } from './modules/shared/ui/shared-components.module';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { AuthModule } from './modules/auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
     SharedComponentsModule,
     BasicInfoModule,
     DailyStatModule,
+    AuthModule,
   ],
   bootstrap: [AppComponent],
+  providers: [provideAnimations()],
 })
 export class AppModule { }

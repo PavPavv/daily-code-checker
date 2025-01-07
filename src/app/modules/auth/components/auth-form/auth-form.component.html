@@ -1,0 +1,7 @@
+<form class="auth-form" [formGroup]="authForm">
+  <app-input
+    [type]="'email'"
+    [ctrl]="getFormControl(authForm.get('email'))"
+    name="email"
+  />
+</form>
