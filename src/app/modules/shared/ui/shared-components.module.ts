@@ -6,11 +6,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {RouterModule} from '@angular/router';
 
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { HeaderComponent } from './header/header.component';
 import { BlockComponent } from './block/block.component';
 import { InputComponent } from './input/input.component';
+import { ButtonComponent } from './button/button.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,7 @@ import { InputComponent } from './input/input.component';
     TooltipComponent,
     BlockComponent,
     InputComponent,
+    ButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -29,12 +33,15 @@ import { InputComponent } from './input/input.component';
     MatCardModule,
     MatIconModule,
     MatInputModule,
+    MatButtonModule,
+    RouterModule,
   ],
   exports: [
     HeaderComponent,
     TooltipComponent,
     BlockComponent,
     InputComponent,
+    ButtonComponent,
   ]
 })
 export class SharedComponentsModule {}

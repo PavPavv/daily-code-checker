@@ -6,13 +6,15 @@ import { SharedComponentsModule } from '../shared/ui/shared-components.module';
 import { StoreModule } from '@ngrx/store';
 import { DailyStatisticsOverviewEffects, dailyStatisticsOverviewReducer } from './store';
 import { EffectsModule } from '@ngrx/effects';
+import { AddStatDialogComponent } from './components/add-stat-dialog/add-stat-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     DailyStatContainerComponent,
-    DailyStatTableComponent
+    DailyStatTableComponent,
+    AddStatDialogComponent
   ],
   imports: [
     CommonModule,

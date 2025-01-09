@@ -1,0 +1,24 @@
+<div class="add-stat-dialog">
+  <h2 class="add-stat-dialog__title">Add daily coding statistics</h2>
+  <form class="add-stat-dialog__form" action="">
+    <app-input
+      [ctrl]="getFormControl(addStatForm.get('date'))"
+      name="date"
+    />
+    <app-input
+      [ctrl]="getFormControl(addStatForm.get('totalRowHours'))"
+      name="totalRowHours"
+    />
+    <app-input
+      [ctrl]="getFormControl(addStatForm.get('totalCleanHours'))"
+      name="totalCleanHours"
+    />
+    <app-input
+      [ctrl]="getFormControl(addStatForm.get('stack'))"
+      name="stack"
+    />
+    <div class="submit-btn">
+      <app-button [text]="'Save'" />
+    </div>
+  </form>
+</div>

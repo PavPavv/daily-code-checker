@@ -17,7 +17,7 @@ export class AuthFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    // 
   }
 
   getFormControl(control: AbstractControl | null): FormControl {

@@ -1,14 +1,17 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { MAX_AVAILABLE_YEAR_CELLS } from '../../../../constants';
 import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
+
+import { MAX_AVAILABLE_YEAR_CELLS } from '../../../../constants';
 import * as fromDailyStat from '../../store';
 import { DailyStat } from '../../../../common/models';
 import { dayOfYear, getYYYYMMDDByDayNum } from '../../../../common/utils';
 import { Cell } from '../../models';
+import { AddStatDialogComponent } from '../add-stat-dialog/add-stat-dialog.component';
 
 const GOOD_WORK_HOURS_AMOUNT = 4;
-const NORMAL_WORK_HOURS_AMOUNT = 1;
+const MIN_WORK_HOURS_AMOUNT = 0.5;
 
 @Component({
   selector: 'app-daily-stat-table',
@@ -20,7 +23,9 @@ export class DailyStatTableComponent implements OnInit {
   @Input() years: string[] = [];
   
   private _currentYearInitial: string = new Date().getFullYear().toString();
-
+  
+  // TODO: add auth guard here afterwards
+  isAuth = true;
   cells: Cell[] = [];
   activeBtnIdx = 0;
   isError: boolean = false;
@@ -33,6 +38,7 @@ export class DailyStatTableComponent implements OnInit {
   constructor(
     private cdr: ChangeDetectorRef,
     private readonly store: Store,
+    private dialog: MatDialog
   ) {
   }
 
@@ -143,7 +149,7 @@ export class DailyStatTableComponent implements OnInit {
   }
 
   isNormalWork(workHours = 0) {
-    if (workHours >= NORMAL_WORK_HOURS_AMOUNT && workHours < GOOD_WORK_HOURS_AMOUNT) {
+    if (workHours >= MIN_WORK_HOURS_AMOUNT && workHours < GOOD_WORK_HOURS_AMOUNT) {
       return true;
     }
     return false;
@@ -163,5 +169,20 @@ export class DailyStatTableComponent implements OnInit {
     this._actualYearBehaviorSubject.next(year);
     this.activeBtnIdx = idx;
     this._fillCells(year);
+  }
+
+  onCell(cell: Cell): void {
+    if (this.isAuth) {
+      const dialogRef = this.dialog.open(AddStatDialogComponent, {
+        data: {},
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        if (result !== undefined) {
+          // this.animal.set(result);
+        }
+      });
+    }
   }
 }

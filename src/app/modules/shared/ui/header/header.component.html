@@ -1,3 +1,22 @@
-<header>
-  
+<header class="header-wrapper">
+  <div class="header-container">
+    <div class="header-container header-container--left">
+      <div class="header-menu">
+        <app-button
+          *ngIf="currentRoute !== '/admin'"
+          [text]="'Admin'" [type]="'nav'" [routerLink]="'admin'"
+        />
+      </div>  
+    </div>
+    <div class="header-container header-container--right">
+        <app-button
+          *ngIf="currentRoute !== '/login'"
+          [text]="'Sign in'" [type]="'nav'" [routerLink]="'login'"
+        />
+        <app-button
+          *ngIf="currentRoute !== '/'"
+          [text]="'Main'" [type]="'nav'" [routerLink]="''"
+        />
+    </div>
+  </div>
 </header>

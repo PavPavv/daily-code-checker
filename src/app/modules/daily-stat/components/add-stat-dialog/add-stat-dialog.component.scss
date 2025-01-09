@@ -1,0 +1,21 @@
+@import '../../../../common/styles/colors.scss';
+
+.add-stat-dialog {
+  width: 280px;
+  padding: 15px;
+  border: 1px solid $activeForm;
+  border-radius: 4px;
+  background: $mainBackground;
+
+  &__title {
+    color: $mainText;
+  }
+
+  &__form {
+    margin-top: 20px;
+  }
+
+  .submit-btn {
+    margin-top: 40px;
+  }
+}

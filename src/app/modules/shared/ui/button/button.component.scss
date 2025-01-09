@@ -1,0 +1,21 @@
+@import '../../../../common/styles/colors.scss';
+
+:host {
+  .btn {
+    width: 100%;
+    height: 40px;
+    cursor: pointer!important;
+  }
+  ::ng-deep {
+    .btn--primary.mdc-button {
+      background: $softGreen!important;
+    }
+    .mdc-button__label {
+      color: $mainText;
+      transition: all .3s ease;
+      &:hover {
+        color: $primary;
+      }
+    }
+  }
+}

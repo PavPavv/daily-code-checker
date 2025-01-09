@@ -34,6 +34,7 @@
                 'day--good': isGoodWork(cell.codeHours),
                 'day--normal': isNormalWork(cell.codeHours)
               }"
+              (click)="onCell(cell)"
             ></div>
           </app-tooltip>
         </div>

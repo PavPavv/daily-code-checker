@@ -4,4 +4,10 @@
     [ctrl]="getFormControl(authForm.get('email'))"
     name="email"
   />
+  <app-input
+    [type]="'password'"
+    [ctrl]="getFormControl(authForm.get('password'))"
+    name="password"
+  />
+  <app-button [text]="'Sign in'" />
 </form>

@@ -2,6 +2,7 @@
 
 $white: #ffffff;
 $alphaGrayLight: #ffffff9c;
+$softGrayAlpha: #768773;
 $alphaGray: #aeadad71;
 $semiDark: #272727;
 $dark: #1c1c1c;
@@ -10,9 +11,8 @@ $black: #000000;
 $purple: #722ed1;
 $rayGreen: #D8FA24;
 $softGreen: #1F890E;
-$softGreenAlpha: #768773;
 $terminalGreen: #43d22c;
-
+$red: #FF0000;
 // Color use
 
 $mainBackground: $dark;
@@ -26,3 +26,6 @@ $highlight: $rayGreen;
 $borderColor: $alphaGray;
 $darkElementColor: $black;
 $activeBg: $softGreen;
+$activeForm: $white;
+$validForm: $softGreen;
+$invalidForm: $white;

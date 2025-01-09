@@ -1,0 +1,17 @@
+<ng-container *ngIf="type === 'primary'">
+  <button
+    mat-flat-button
+    class="btn btn--primary"
+  >
+    {{ text }}
+  </button>
+</ng-container>
+
+<ng-container *ngIf="type === 'nav'">
+  <button
+    mat-button
+    class="btn btn--nav"
+  >
+    {{ text }}
+  </button>
+</ng-container>
