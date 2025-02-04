@@ -1,6 +1,7 @@
 export interface DailyStat {
   id: number;
   date: string;
+  hours: number;
   coding_hours: number;
   stack: string[];
 }
@@ -11,13 +12,4 @@ export interface DailyStatOverviewResponse {
   count: any;
   status: number;
   statusText: string;
-}
-
-export interface IWorkingNote {
-  id: number;
-  coding_hours: number;
-  stack: string[];
-  data?: string;
-  created_at?: string;
-  hours?: number;
 }

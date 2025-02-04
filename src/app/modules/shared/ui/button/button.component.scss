@@ -1,4 +1,5 @@
 @import '../../../../common/styles/colors.scss';
+@import '../../../../common/styles/variables.scss';
 
 :host {
   .btn {
@@ -10,7 +11,11 @@
     .btn--primary.mdc-button {
       background: $softGreen!important;
     }
+    .btn--primary.mdc-button:disabled {
+      background: $borderColor!important;
+    }
     .mdc-button__label {
+      font-size: $font-tablet;
       color: $mainText;
       transition: all .3s ease;
       &:hover {

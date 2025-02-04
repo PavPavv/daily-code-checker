@@ -14,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { BlockComponent } from './block/block.component';
 import { InputComponent } from './input/input.component';
 import { ButtonComponent } from './button/button.component';
+import { OnlyNumberDirective } from '../../../common/directives';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ButtonComponent } from './button/button.component';
     BlockComponent,
     InputComponent,
     ButtonComponent,
+    OnlyNumberDirective,
   ],
   imports: [
     CommonModule,

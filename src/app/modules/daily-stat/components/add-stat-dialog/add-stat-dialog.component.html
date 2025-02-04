@@ -1,24 +1,55 @@
 <div class="add-stat-dialog">
-  <h2 class="add-stat-dialog__title">Add daily coding statistics</h2>
-  <form class="add-stat-dialog__form" action="">
+  <h2 class="add-stat-dialog__title">Daily coding statistics</h2>
+  <div class="add-stat-dialog__close">
+    <button
+      mat-icon-button
+      class="add-stat-dialog__close-btn"
+      (click)="onClose()"
+    >
+      <mat-icon
+        aria-hidden="false"
+        aria-label="close"
+        fontIcon="close"
+        class="add-stat-dialog__close-btn-icon"
+      ></mat-icon>
+    </button>
+  </div>
+  <form
+    [formGroup]="addStatForm"
+    (ngSubmit)="onSave()"
+    class="add-stat-dialog__form"
+  >
+    
     <app-input
       [ctrl]="getFormControl(addStatForm.get('date'))"
       name="date"
+      [isDisabled]="true"
+      [title]="'Date'"
     />
     <app-input
       [ctrl]="getFormControl(addStatForm.get('totalRowHours'))"
       name="totalRowHours"
+      [type]="'number'"
+      [title]="'Total hours'"
     />
     <app-input
       [ctrl]="getFormControl(addStatForm.get('totalCleanHours'))"
       name="totalCleanHours"
+      [type]="'number'"
+      [title]="'Focused coding hours'"
     />
+    <!-- TODO: add proper tags implementation -->
     <app-input
       [ctrl]="getFormControl(addStatForm.get('stack'))"
       name="stack"
+      [type]="'text'"
+      [title]="'Stack'"
     />
     <div class="submit-btn">
-      <app-button [text]="'Save'" />
+      <app-button
+        [text]="'Save'"
+        [disabled]="addStatForm.invalid || !addStatForm.dirty || !addStatForm.touched"
+      />
     </div>
   </form>
 </div>

@@ -7,6 +7,8 @@ export const initialDailyStatsOverviewState: IDailyStatisticsState = {
   dailyStatsByYear: null,
   isLoading: false,
   error: null,
+  isAddNewLoading: false,
+  isAddNewError: null,
 };
 
 const reducer = createReducer(
@@ -19,7 +21,6 @@ const reducer = createReducer(
       error: null,
     };
   }),
-
   on(actions.getDailyOverviewByYearSuccess, (state, { data }) => {
     return {
       ...state,
@@ -28,12 +29,33 @@ const reducer = createReducer(
       error: null,
     };
   }),
-
   on(actions.getDailyOverviewByYearError, (state, { error }) => {
     return {
       ...state,
       isLoading: false,
       error: error,
+    };
+  }),
+
+  on(actions.addNewDailyStats, (state) => {
+    return {
+      ...state,
+      isAddNewLoading: true,
+      isAddNewError: null,
+    };
+  }),
+  on(actions.addNewDailyStatsSuccess, (state) => {
+    return {
+      ...state,
+      isAddNewLoading: false,
+      isAddNewError: null,
+    };
+  }),
+  on(actions.addNewDailyStatsError, (state) => {
+    return {
+      ...state,
+      isAddNewLoading: false,
+      isAddNewError: {},
     };
   }),
 );

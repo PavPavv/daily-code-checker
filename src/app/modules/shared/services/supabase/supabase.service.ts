@@ -3,6 +3,7 @@ import {
   createClient,
   SupabaseClient,
 } from '@supabase/supabase-js';
+
 import { environment } from '../../../../../environments/environment.development';
 import { DailyStat } from '../../../../common/models';
 
@@ -33,7 +34,7 @@ export class SupabaseService {
 
   async getWorkingNotesByYear(year: string): Promise<any> {
     const result =  await this._supabase?.from('working_hours')
-      .select('id, date, coding_hours, stack')
+      .select('id, date, hours, coding_hours, stack')
       .gte('date', `${year}-01-01`)
       .lte('date', `${year}-12-31`);
     return this._sortByDate(result?.data as DailyStat[]);

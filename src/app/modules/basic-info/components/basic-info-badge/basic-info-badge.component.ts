@@ -10,10 +10,11 @@ export class BasicInfoBadgeComponent {
   @Input() title: string = '';
   @Input() size: 'sm' | 'lg' = 'sm';
   @Input() isShadowed: boolean = false;
+  @Input() imgType: 'png' | 'jpg' | 'jpeg' = 'png';
   
   private _img_name = './assets/img/';
 
   getBadgePath(): string {
-    return this._img_name + this.name + '.png';
+    return this._img_name + this.name + `.${this.imgType}`;
   }
 }

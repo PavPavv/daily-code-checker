@@ -1,0 +1,1 @@
+export const REG_EX_ONLY_NUMBERS_ANY_AMOUNT = /[^0-9]*/g;

@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 
 import { MAX_AVAILABLE_YEAR_CELLS } from '../../../../constants';
-import * as fromDailyStat from '../../store';
+import * as fromDailyStats from '../../store';
 import { DailyStat } from '../../../../common/models';
 import { dayOfYear, getYYYYMMDDByDayNum } from '../../../../common/utils';
 import { Cell } from '../../models';
@@ -47,11 +47,11 @@ export class DailyStatTableComponent implements OnInit {
 
     this._actualYearBehaviorSubject.subscribe((pickedYear) => {
       if (pickedYear) {
-        this.store.dispatch(fromDailyStat.getDailyOverviewByYear({ year: pickedYear }));
+        this.store.dispatch(fromDailyStats.getDailyOverviewByYear({ year: pickedYear }));
       }
     });
 
-    this.store.select(fromDailyStat.selectDailyStatisticsByYear).subscribe((data) => {
+    this.store.select(fromDailyStats.selectDailyStatisticsByYear).subscribe((data) => {
       if (data && data.length) {
         this._addStatsDataToCells(data);
       }
@@ -80,13 +80,13 @@ export class DailyStatTableComponent implements OnInit {
     const daysArr: Cell[] = this.cells.map((_, i) => {
       if ((i >= firstDayOfYearRu - 1) && (i <= fullDaysInYearWithOffset)) {
         return {
-          id: i,
+          id: undefined,
           isDay: true,
           yearDayNum: (i - firstDayOfYearRu) + 2,
         };
       } else {
         return {
-          id: i,
+          id: undefined,
           isDay: false,
         };
       }
@@ -104,8 +104,11 @@ export class DailyStatTableComponent implements OnInit {
         const restDaysCells = this.cells.slice(datesBeginIdx).map((cell: Cell, i: number) => {
           return {
             ...cell,
+            rowHours: data[i]?.hours ?? 0,
             codeHours: data[i]?.coding_hours ?? 0,
             date: data[i]?.date,
+            id: data[i]?.id,
+            stack: data[i]?.stack,
           }
         });
         const result = [...emptyStartCells, ...restDaysCells];
@@ -124,8 +127,11 @@ export class DailyStatTableComponent implements OnInit {
             const restDaysCells = this.cells.slice(startIdx).map((cell: Cell, i: number) => {
               return {
                 ...cell,
+                rowHours: data[i]?.hours ?? 0,
                 codeHours: data[i]?.coding_hours ?? 0,
                 date: data[i]?.date,
+                id: data[i]?.id,
+                stack: data[i]?.stack,
               }
             });
             const result = [...emptyStartCells, ...restDaysCells];
@@ -172,13 +178,21 @@ export class DailyStatTableComponent implements OnInit {
   }
 
   onCell(cell: Cell): void {
+    // TODO: replace with auth implementation
     if (this.isAuth) {
       const dialogRef = this.dialog.open(AddStatDialogComponent, {
-        data: {},
+        data: {
+          id: cell?.id,
+          date: this.getCellDate(cell),
+          totalRowHours: cell?.rowHours,
+          totalCleanHours: cell?.codeHours,
+          stack: cell?.stack,
+        },
+        disableClose: true,
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
+        console.log('The dialog was closed with a result: ', result);
         if (result !== undefined) {
           // this.animal.set(result);
         }
