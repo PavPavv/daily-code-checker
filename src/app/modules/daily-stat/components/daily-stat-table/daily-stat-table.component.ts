@@ -23,6 +23,7 @@ export class DailyStatTableComponent implements OnInit {
   @Input() years: string[] = [];
   
   private _currentYearInitial: string = new Date().getFullYear().toString();
+  private _currentChosenYear: string = this._currentYearInitial;
   
   // TODO: add auth guard here afterwards
   isAuth = true;
@@ -47,6 +48,7 @@ export class DailyStatTableComponent implements OnInit {
 
     this._actualYearBehaviorSubject.subscribe((pickedYear) => {
       if (pickedYear) {
+        this._currentChosenYear = pickedYear;
         this.store.dispatch(fromDailyStats.getDailyOverviewByYear({ year: pickedYear }));
       }
     });
@@ -56,6 +58,10 @@ export class DailyStatTableComponent implements OnInit {
         this._addStatsDataToCells(data);
       }
     });
+  }
+
+  private _getDailyDataByActiveYear() {
+    this.store.dispatch(fromDailyStats.getDailyOverviewByYear({ year: this._currentChosenYear }));
   }
 
   private _generateInitialYearOverview(): void {
@@ -178,7 +184,7 @@ export class DailyStatTableComponent implements OnInit {
   }
 
   onCell(cell: Cell): void {
-    // TODO: replace with auth implementation
+    // TODO: replace with real auth implementation
     if (this.isAuth) {
       const dialogRef = this.dialog.open(AddStatDialogComponent, {
         data: {
@@ -191,11 +197,8 @@ export class DailyStatTableComponent implements OnInit {
         disableClose: true,
       });
   
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed with a result: ', result);
-        if (result !== undefined) {
-          // this.animal.set(result);
-        }
+      dialogRef.afterClosed().subscribe(() => {
+        this._getDailyDataByActiveYear();
       });
     }
   }

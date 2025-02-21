@@ -3,7 +3,9 @@
     <div class="avatar-wrapper">
       <div class="stories">
         <div class="avatar">
-          <img src="{{ user?.avatar_url }}" alt="user image from gh">
+          @if (!isLoading) {
+            <img *ngIf="user?.avatar_url" src="{{ user?.avatar_url }}" alt="avatar">
+          }
         </div>
       </div>
       <div class="username ubuntu-bold">{{ user?.login }}</div>

@@ -1,0 +1,39 @@
+@import '../../../../common/styles/colors.scss';
+
+.toast {
+  background: $primary;
+  width: 320px;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $alphaGray $semiDark $dark;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.11);
+
+  &.info {
+    background-color: $primary;
+    color: $mainText;
+  }
+
+  &.success {
+    background-color: $activeBg;
+    color: $mainText;
+  }
+
+  &.warning {
+    background-color: $errorBg;
+    color: $mainText;
+  }
+
+  .text {
+    width: 300px;
+    overflow-wrap: break-word;
+  }
+
+  mat-icon {
+    cursor: pointer;
+  }
+}

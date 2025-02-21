@@ -23,5 +23,13 @@
     &--right {
       justify-content: end;
     }
+
+    .logout-btn {
+      background: transparent;
+    }
   }
+}
+
+button {
+  max-width: 100px;
 }

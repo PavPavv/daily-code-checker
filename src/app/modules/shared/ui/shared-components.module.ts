@@ -12,18 +12,18 @@ import {RouterModule} from '@angular/router';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { HeaderComponent } from './header/header.component';
 import { BlockComponent } from './block/block.component';
-import { InputComponent } from './input/input.component';
-import { ButtonComponent } from './button/button.component';
 import { OnlyNumberDirective } from '../../../common/directives';
+import { defaultToastConfig, TOAST_CONFIG_TOKEN, ToastComponent } from './toast/toast.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     TooltipComponent,
     BlockComponent,
-    InputComponent,
-    ButtonComponent,
     OnlyNumberDirective,
+    ToastComponent,
+    LoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -42,8 +42,13 @@ import { OnlyNumberDirective } from '../../../common/directives';
     HeaderComponent,
     TooltipComponent,
     BlockComponent,
-    InputComponent,
-    ButtonComponent,
-  ]
+    LoaderComponent
+  ],
+  providers: [
+    {
+      provide: TOAST_CONFIG_TOKEN,
+      useValue: defaultToastConfig,
+    }
+  ],
 })
 export class SharedComponentsModule {}

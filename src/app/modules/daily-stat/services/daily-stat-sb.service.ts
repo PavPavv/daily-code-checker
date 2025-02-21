@@ -20,7 +20,6 @@ export class DailyStatSbService {
   }
 
   async addNewDailyStat(data: AddStatsDispatchData): Promise<any> {
-    // console.log('data addNewDailyStat: ', data);
     const result = await this._supabase?.from('working_hours')
       .insert({
         date: new Date(data?.date),
@@ -28,15 +27,9 @@ export class DailyStatSbService {
         coding_hours: data?.codingHours,
         stack: data?.stack,
       });
-    console.log('add new result: ', result);
-    // if (error) {
-    //   // TODO: create toasts and errors services
-    //   console.log(result);
-    // }
   }
 
   async editDailyStat(data: EditStatsDispatchData): Promise<any> {
-    // console.log('edit data', data);
     const result = await this._supabase?.from('working_hours')
       .update({
         date: new Date(data.date),
@@ -45,10 +38,5 @@ export class DailyStatSbService {
         stack: data?.stack,
       })
       .eq('id', data.id);
-    console.log('add new result: ', result);
-    // if (error) {
-    //   // TODO: create toasts and errors services
-    //   console.log(result);
-    // }
   }
 }

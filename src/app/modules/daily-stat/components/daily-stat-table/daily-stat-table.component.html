@@ -7,7 +7,6 @@
           class="daily-code__year"
         >
           <button
-            mat-button
             (click)="onClickYear(year, i)"
             [ngClass]="{'daily-code__year-btn--active': activeBtnIdx === i}"
             class="daily-code__year-btn"
@@ -16,27 +15,29 @@
           </button>
         </div>
       </div>
-      <div class="daily-code__weekdays">
-        <div
-          *ngFor="let day of shortWeekDays"
-          class="daily-code__weekday"
-        >
-          <div>{{ day }}</div>
+      <div class="daily-code__body">
+        <div class="daily-code__weekdays">
+          <div
+            *ngFor="let day of shortWeekDays"
+            class="daily-code__weekday"
+          >
+            <div>{{ day }}</div>
+          </div>
         </div>
-      </div>
-      <div class="daily-code__data">
-        <div class="cell" *ngFor="let cell of cells">
-          <app-tooltip text="{{ getCellDate(cell) }}">
-            <div
-              *ngIf="cell.isDay"
-              class="day"
-              [ngClass]="{
-                'day--good': isGoodWork(cell.codeHours),
-                'day--normal': isNormalWork(cell.codeHours)
-              }"
-              (click)="onCell(cell)"
-            ></div>
-          </app-tooltip>
+        <div class="daily-code__data">
+          <div class="cell" *ngFor="let cell of cells">
+            <app-tooltip text="{{ getCellDate(cell) }}">
+              <div
+                *ngIf="cell.isDay"
+                class="day"
+                [ngClass]="{
+                  'day--good': isGoodWork(cell.codeHours),
+                  'day--normal': isNormalWork(cell.codeHours)
+                }"
+                (click)="onCell(cell)"
+              ></div>
+            </app-tooltip>
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
-import { REG_EX_ONLY_NUMBERS_ANY_AMOUNT } from '../../constants';
+import { REG_EX_FLOAT_NUMBERS_ALLOWED } from '../../constants';
 
 export function filterNumbers(val: string): string {
-  return val.replace(REG_EX_ONLY_NUMBERS_ANY_AMOUNT, '');
+  return val.replace(REG_EX_FLOAT_NUMBERS_ALLOWED, '');
 }

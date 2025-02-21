@@ -1,8 +1,63 @@
+@use '@angular/material' as mat;
+
 @import './app/common/styles/normalize.scss';
 @import './app/common/styles/variables.scss';
 @import './app/common/styles/colors.scss';
 
+// customize material ui 
+$custom-primary: mat.define-palette(mat.$indigo-palette);
+$custom-accent: mat.define-palette(mat.$pink-palette);
+$custom-warn: mat.define-palette(mat.$red-palette);
 
+$custom-theme: mat.define-light-theme((
+  color: (
+    primary: $custom-primary,
+    accent: $custom-accent,
+    warn: $custom-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+@include mat.all-component-themes($custom-theme);
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+.mat-mdc-text-field-wrapper {
+  border-radius: 7px !important;
+  background: $darkElementColor !important;
+
+  input {
+    color: $highlightText !important;
+  }
+}
+
+.mdc-button:disabled .mdc-button__label {
+  color: $darkElementColor;
+}
+
+.mdc-button {
+  width: 100%;
+  height: 40px;
+  min-height: 40px;
+  cursor: pointer;
+
+  &:disabled {
+    background: $borderColor!important;
+  }
+
+  &__label {
+    font-size: $font-tablet;
+    color: $mainText;
+  }
+
+  &--raised {
+    background: $softGreen!important;
+  }
+}
+
+// Normalize
 html, body { height: 100vh; }
 body { font-family: Roboto, "Helvetica Neue", sans-serif; }
 * {
@@ -18,6 +73,20 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0!important;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+// Fonts
 .ubuntu-light {
   font-family: "Ubuntu", sans-serif;
   font-weight: 300;
@@ -66,6 +135,7 @@ h1, h2, h3, h4, h5, h6 {
   font-style: italic;
 }
 
+// Scroll
 ::-webkit-scrollbar {
   height: 12px;
   width: 8px;
@@ -83,6 +153,7 @@ h1, h2, h3, h4, h5, h6 {
   background: $darkElementColor;
 }
 
+// Custom global css styles
 .main-wrapper {
   padding: 20px;
 }
@@ -115,16 +186,4 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   gap: 20px;
   height: 100%;
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
 }

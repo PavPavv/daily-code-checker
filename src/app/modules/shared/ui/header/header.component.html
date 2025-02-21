@@ -2,21 +2,48 @@
   <div class="header-container">
     <div class="header-container header-container--left">
       <div class="header-menu">
-        <app-button
-          *ngIf="currentRoute !== '/admin'"
-          [text]="'Admin'" [type]="'nav'" [routerLink]="'admin'"
-        />
+        @if (isAuth) {
+          <button
+            *ngIf="currentRoute !== '/admin'"
+            mat-button
+            [routerLink]="'admin'"
+          >
+            Admin
+          </button>
+        }
       </div>  
     </div>
     <div class="header-container header-container--right">
-        <app-button
-          *ngIf="currentRoute !== '/login'"
-          [text]="'Sign in'" [type]="'nav'" [routerLink]="'login'"
-        />
-        <app-button
+        @if (!isAuth) {
+          <button
+            *ngIf="currentRoute !== '/login'"
+            mat-button
+            [routerLink]="'login'"
+          >
+            Sign In
+          </button>
+        }
+        <button
           *ngIf="currentRoute !== '/'"
-          [text]="'Main'" [type]="'nav'" [routerLink]="''"
-        />
+          mat-button
+          [routerLink]="''"
+        >
+          Main
+        </button>
+
+        @if (isAuth) {
+          <button
+            mat-fab
+            class="logout-btn"
+            (click)="logout()"
+          >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="logout"
+            fontIcon="logout"
+          ></mat-icon>
+          </button>
+        }
     </div>
   </div>
 </header>

@@ -6,3 +6,6 @@ export const selectBasicInfoState = createFeatureSelector<IBasicInfoState>('basi
 export const selectBasicInfo = createSelector(
   selectBasicInfoState, (state) => state.basicInfo
 );
+export const selectBasicInfoIsLoading = createSelector(
+  selectBasicInfoState, (state) => state.isLoading
+);

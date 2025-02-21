@@ -1,13 +1,38 @@
-<form class="auth-form" [formGroup]="authForm">
-  <app-input
-    [type]="'email'"
-    [ctrl]="getFormControl(authForm.get('email'))"
-    name="email"
-  />
-  <app-input
-    [type]="'password'"
-    [ctrl]="getFormControl(authForm.get('password'))"
-    name="password"
-  />
-  <app-button [text]="'Sign in'" />
+<form class="auth-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      type="email"
+      formControlName="email"
+      placeholder="Enter your email"
+    >
+    <mat-error *ngIf="authForm.get('email')?.hasError('required')">
+      Email is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      type="password"
+      formControlName="password"
+      placeholder="Enter your password"
+    >
+    <mat-error *ngIf="authForm.get('password')?.hasError('required')">
+      Password is required
+    </mat-error>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="authForm.invalid"
+    class='submit-btn'
+  >
+    <app-loader *ngIf="isLoading"></app-loader>
+    Submit
+  </button>
 </form>

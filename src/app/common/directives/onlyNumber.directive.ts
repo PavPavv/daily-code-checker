@@ -1,6 +1,7 @@
-import { Directive, ElementRef, forwardRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, forwardRef, HostListener, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { filterNumbers } from '../utils';
+import { REG_EX_FLOAT_NUMBERS_ALLOWED } from '../../constants';
 
 @Directive({
   selector: 'input[onlyNumber]',
@@ -20,35 +21,20 @@ export class OnlyNumberDirective implements ControlValueAccessor {
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
-  ) {
-    console.log('AAAAAAAAAAA!');
-  }
-
-  @HostListener('keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
-    if (allowedKeys.includes(event.key)) {
-      return; // Allow navigation and deletion keys
-    }
-    if (!/[0-9]/.test(event.key)) {
-      event.preventDefault(); // Block non-numeric keys
-    }
-  }
+  ) {}
 
   @HostListener('paste', ['$event'])
   onPaste(event: ClipboardEvent): void {
-    event.preventDefault(); // Prevent the default paste behavior
+    event.preventDefault();
     const pastedText = event.clipboardData?.getData('text') || '';
-    const filteredText = filterNumbers(pastedText); // Filter non-numeric characters
-    this._updateTextInput(filteredText, this.value !== filteredText); // Update the input value
+    const filteredText = filterNumbers(pastedText);
+    this._updateTextInput(filteredText, this.value !== filteredText);
   }
 
   @HostListener('input', ['$event'])
   onInputChange(event: Event): void {
-    console.log('Input event triggered');
     const value = (event.target as HTMLInputElement).value;
     const filteredValue: string = filterNumbers(value);
-    console.log('VALUE: ', value);
     this._updateTextInput(filteredValue, this.value !== filteredValue);
   }
 

@@ -10,7 +10,9 @@ import * as fromBasicInfo from '../../store';
   styleUrl: './basic-info-primary.component.scss'
 })
 export class BasicInfoPrimaryComponent implements OnInit {
-  user: IGitUser | null = null
+  user: IGitUser | null = null;
+  isLoading: boolean = false;
+
   constructor(private readonly store: Store) {}
 
   ngOnInit(): void {
@@ -25,6 +27,9 @@ export class BasicInfoPrimaryComponent implements OnInit {
   getStoredData(): void {
     this.store.pipe(select(fromBasicInfo.selectBasicInfo)).subscribe((data) => {
       this.user = data;
+    });
+    this.store.pipe(select(fromBasicInfo.selectBasicInfoIsLoading)).subscribe((data) => {
+      this.isLoading = data;
     });
   }
 }

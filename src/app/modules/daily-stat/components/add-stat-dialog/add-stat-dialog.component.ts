@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 
@@ -16,10 +16,11 @@ export class AddStatDialogComponent implements OnInit {
   addStatForm: FormGroup;
 
   constructor(
+    private fb: FormBuilder,
     private readonly store: Store,
     private dialogRef: MatDialogRef<AddStatDialogComponent>,
   ) {
-    this.addStatForm = new FormGroup({
+    this.addStatForm = this.fb.group({
       date: new FormControl(null),
       totalRowHours: 
         new FormControl(null, [Validators.min(0), Validators.max(16), Validators.maxLength(3)]),
@@ -30,18 +31,12 @@ export class AddStatDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data);
     this.addStatForm.patchValue({
       date: this.data.date,
       totalRowHours: this.data.totalRowHours,
       totalCleanHours: this.data.totalCleanHours,
       stack: this.data.stack ? this.data.stack.join(', ') : '',
     });
-
-    // TODO: remove after debug
-    // this.addStatForm.valueChanges.subscribe((form) => {
-    //   console.log('form: ', this.addStatForm);
-    // });
   }
 
   getFormControl(control: AbstractControl | null): FormControl {
