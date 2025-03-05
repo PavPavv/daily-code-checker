@@ -1,6 +1,13 @@
 <div class='main-page central'>
   <div class="container">
     <basic-info-container />
-    <app-daily-stat-container />
+    <div class="mobile mb-3">
+      <app-block [removeHover]="true">
+        <app-year-control></app-year-control>
+      </app-block>
+    </div>
+    <div class="mobile">
+      <app-daily-stat-container />
+    </div>
   </div>
 </div>

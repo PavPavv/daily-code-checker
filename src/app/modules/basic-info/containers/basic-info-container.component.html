@@ -9,14 +9,11 @@
           <h3>change theme</h3>
         </app-block> -->
       </div>
-      <!-- <div class="row basic-info__row">
-        <app-block>
-          <h3>here</h3>
-          <h3>here</h3>
-          <h3>here</h3>
-          <h3>here</h3>
+      <div class="row basic-info__row basic-info__years">
+        <app-block [removeHover]="true">
+          <app-year-control></app-year-control>
         </app-block>
-      </div> -->
+      </div>
     </div>
     <div class="col">
         <app-block>
@@ -25,6 +22,9 @@
         <app-block>
           <app-basic-info-greet />
         </app-block>
+        <div class="stats-desktop">
+          <app-daily-stat-container />
+        </div>
     </div>
   </div>
 </div>

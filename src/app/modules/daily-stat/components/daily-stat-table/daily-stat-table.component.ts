@@ -9,6 +9,8 @@ import { DailyStat } from '../../../../common/models';
 import { dayOfYear, getYYYYMMDDByDayNum } from '../../../../common/utils';
 import { Cell } from '../../models';
 import { AddStatDialogComponent } from '../add-stat-dialog/add-stat-dialog.component';
+import { FakeAuthService } from '../../../auth/services/fake-auth.service';
+import { DateService } from '../../../shared/services/date/date.service';
 
 const GOOD_WORK_HOURS_AMOUNT = 4;
 const MIN_WORK_HOURS_AMOUNT = 0.5;
@@ -20,44 +22,50 @@ const MIN_WORK_HOURS_AMOUNT = 0.5;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DailyStatTableComponent implements OnInit {
-  @Input() years: string[] = [];
   
   private _currentYearInitial: string = new Date().getFullYear().toString();
   private _currentChosenYear: string = this._currentYearInitial;
   
-  // TODO: add auth guard here afterwards
-  isAuth = true;
+  years: string[] = [];
+  isAuth = false;
   cells: Cell[] = [];
+  // TODO: remove after refactor
   activeBtnIdx = 0;
   isError: boolean = false;
   isLoading: boolean = false;
   shortWeekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-  private _actualYearBehaviorSubject =
-    new BehaviorSubject<string>(this._currentYearInitial);
-
   constructor(
     private cdr: ChangeDetectorRef,
     private readonly store: Store,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private fakeAuthService: FakeAuthService,
+    private dateService: DateService
   ) {
+    this.years = dateService.getYears();
+    this.dateService.currentYear$.subscribe((pickedYear) => {
+      if (pickedYear) {
+        this._currentChosenYear = pickedYear;
+        this.store.dispatch(fromDailyStats.getDailyOverviewByYear({ year: pickedYear }));
+        this._fillCells(this._currentChosenYear);
+      }
+    });
   }
 
   ngOnInit(): void {
     this._generateInitialYearOverview();
-
-    this._actualYearBehaviorSubject.subscribe((pickedYear) => {
-      if (pickedYear) {
-        this._currentChosenYear = pickedYear;
-        this.store.dispatch(fromDailyStats.getDailyOverviewByYear({ year: pickedYear }));
-      }
-    });
 
     this.store.select(fromDailyStats.selectDailyStatisticsByYear).subscribe((data) => {
       if (data && data.length) {
         this._addStatsDataToCells(data);
       }
     });
+
+    this.fakeAuthService.isLoggedIn()
+      .then((isLoggedIn) => {
+        this.isAuth = isLoggedIn;
+        this.cdr.markForCheck();
+      });
   }
 
   private _getDailyDataByActiveYear() {
@@ -101,9 +109,10 @@ export class DailyStatTableComponent implements OnInit {
   }
 
   private _addStatsDataToCells(data: DailyStat[]): void {
+    console.log('_addStatsDataToCells!');
     if (data && data.length) {
       // TODO: remove year constant after backend data completed
-      if (Number(this._actualYearBehaviorSubject.getValue()) > 2023) {
+      if (Number(this.dateService.currentYear$.getValue()) > 2023) {
         const dataYearStartWeekDay = new Date(data[0]?.date).getDay();
         const datesBeginIdx = dataYearStartWeekDay === 0 ? 7 : dataYearStartWeekDay - 1;
         const emptyStartCells = this.cells.slice(0, datesBeginIdx);
@@ -122,7 +131,8 @@ export class DailyStatTableComponent implements OnInit {
         this.cdr.markForCheck();
 
       // TODO: remove year constant after backend data completed
-      } else if (Number(this._actualYearBehaviorSubject.getValue()) === 2023) {
+      } else if (Number(this.dateService.currentYear$.getValue()) === 2023) {
+        console.log('2023');
         const firstWeekDayInYearNum = new Date('2023-01-01').getDay();
         const firstWeekDayInYear = firstWeekDayInYearNum ? firstWeekDayInYearNum : 7;
         const firstDataDate = data[0]?.date;
@@ -167,24 +177,19 @@ export class DailyStatTableComponent implements OnInit {
     return false;
   }
 
-  getYears(): string[] {
-    return this.years.sort((a: string, b: string) => Number(b) - Number(a));
-  }
-
   getCellDate(cell: Cell): string {
-    const pickedYear = this._actualYearBehaviorSubject.getValue();
+    const pickedYear = this.dateService.currentYear$.getValue();
     return getYYYYMMDDByDayNum(pickedYear, cell?.yearDayNum);
   }
 
-  onClickYear(year: string, idx: number) {
-    if (year === this._actualYearBehaviorSubject.getValue()) return;
-    this._actualYearBehaviorSubject.next(year);
-    this.activeBtnIdx = idx;
-    this._fillCells(year);
-  }
+  // onClickYear(year: string, idx: number) {
+  //   if (year === this._actualYearBehaviorSubject.getValue()) return;
+  //   this._actualYearBehaviorSubject.next(year);
+  //   this.activeBtnIdx = idx;
+  //   this._fillCells(year);
+  // }
 
   onCell(cell: Cell): void {
-    // TODO: replace with real auth implementation
     if (this.isAuth) {
       const dialogRef = this.dialog.open(AddStatDialogComponent, {
         data: {

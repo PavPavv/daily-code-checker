@@ -1,0 +1,16 @@
+<div class="years">
+  <div class="years__controls">
+    <div 
+      *ngFor="let year of getYears(); let i = index;"
+      class="years__year"
+    >
+      <button
+        (click)="onClickYear(year, i)"
+        [ngClass]="{'years__year-btn--active': activeBtnIdx === i}"
+        class="years__year-btn"
+      >
+        {{ year }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,20 +1,6 @@
 <div class="daily-code__wrapper">
   <app-block [removeHover]="true">
     <div class="daily-code__table">
-      <div class="daily-code__controls">
-        <div 
-          *ngFor="let year of getYears(); let i = index;"
-          class="daily-code__year"
-        >
-          <button
-            (click)="onClickYear(year, i)"
-            [ngClass]="{'daily-code__year-btn--active': activeBtnIdx === i}"
-            class="daily-code__year-btn"
-          >
-            {{ year }}
-          </button>
-        </div>
-      </div>
       <div class="daily-code__body">
         <div class="daily-code__weekdays">
           <div

@@ -1,10 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 
 import { AddStatDialogData } from '../../models/add-stat-dialog.model';
 import * as fromDailyStats from '../../store';
+import { FakeAuthService } from '../../../auth/services/fake-auth.service';
 
 @Component({
   selector: 'app-add-stat-dialog',
@@ -14,11 +15,14 @@ import * as fromDailyStats from '../../store';
 export class AddStatDialogComponent implements OnInit {
   readonly data = inject<AddStatDialogData>(MAT_DIALOG_DATA);
   addStatForm: FormGroup;
+  isAuth: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private readonly store: Store,
     private dialogRef: MatDialogRef<AddStatDialogComponent>,
+    private cdr: ChangeDetectorRef,
+    private fakeAuthService: FakeAuthService,
   ) {
     this.addStatForm = this.fb.group({
       date: new FormControl(null),
@@ -37,6 +41,12 @@ export class AddStatDialogComponent implements OnInit {
       totalCleanHours: this.data.totalCleanHours,
       stack: this.data.stack ? this.data.stack.join(', ') : '',
     });
+
+    this.fakeAuthService.isLoggedIn()
+      .then((isLoggedIn) => {
+        this.isAuth = isLoggedIn;
+        this.cdr.markForCheck();
+      });
   }
 
   getFormControl(control: AbstractControl | null): FormControl {

@@ -12,6 +12,7 @@ import { basicInfoReducer } from './store';
 import { BasicInfoEffects } from './store/basic-info.effects';
 import { BasicInfoGreetComponent } from './components/basic-info-greet/basic-info-greet.component';
 import { BasicInfoSkillsComponent } from './components/basic-info-skills/basic-info-skills.component';
+import { DailyStatModule } from '../daily-stat/daily-stat.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { BasicInfoSkillsComponent } from './components/basic-info-skills/basic-i
     EffectsModule.forFeature([BasicInfoEffects]),
     MatCardModule,
     SharedComponentsModule,
+    DailyStatModule,
   ],
   exports: [BasicInfoContainerComponent, BasicInfoPrimaryComponent]
 })

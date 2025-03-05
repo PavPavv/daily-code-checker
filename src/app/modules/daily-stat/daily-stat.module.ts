@@ -15,7 +15,6 @@ import { DailyStatContainerComponent } from './containers/daily-stat-container/d
 import { DailyStatTableComponent } from './components/daily-stat-table/daily-stat-table.component';
 import { DailyStatisticsOverviewEffects, dailyStatisticsOverviewReducer } from './store';
 import { AddStatDialogComponent } from './components/add-stat-dialog/add-stat-dialog.component';
-
 @NgModule({
   declarations: [
     DailyStatContainerComponent,

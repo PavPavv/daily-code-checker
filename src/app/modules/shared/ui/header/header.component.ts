@@ -24,10 +24,10 @@ export class HeaderComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.urlAfterRedirects;
         this.fakeAuthService.isLoggedIn()
-        .then((isLoggedIn) => {
-          this.isAuth = isLoggedIn;
-          this.cdr.markForCheck();
-        });
+          .then((isLoggedIn) => {
+            this.isAuth = isLoggedIn;
+            this.cdr.markForCheck();
+          });
       }
     });
   }

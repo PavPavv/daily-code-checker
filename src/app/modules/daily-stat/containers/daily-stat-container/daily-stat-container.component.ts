@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -6,12 +6,6 @@ import { Store } from '@ngrx/store';
   templateUrl: './daily-stat-container.component.html',
   styleUrl: './daily-stat-container.component.scss'
 })
-export class DailyStatContainerComponent implements OnInit {
-  public years: string[] = ['2020', '2021',  '2022', '2023', '2024', '2025'];
-
+export class DailyStatContainerComponent {
   constructor (private readonly store: Store) {}
-
-  ngOnInit(): void {
-    // TODO: add dynamic years calculation
-  }
 }

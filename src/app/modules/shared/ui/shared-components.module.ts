@@ -15,6 +15,7 @@ import { BlockComponent } from './block/block.component';
 import { OnlyNumberDirective } from '../../../common/directives';
 import { defaultToastConfig, TOAST_CONFIG_TOKEN, ToastComponent } from './toast/toast.component';
 import { LoaderComponent } from './loader/loader.component';
+import { YearControlComponent } from './year-control/year-control.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LoaderComponent } from './loader/loader.component';
     OnlyNumberDirective,
     ToastComponent,
     LoaderComponent,
+    YearControlComponent,
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { LoaderComponent } from './loader/loader.component';
     HeaderComponent,
     TooltipComponent,
     BlockComponent,
-    LoaderComponent
+    LoaderComponent,
+    YearControlComponent
   ],
   providers: [
     {

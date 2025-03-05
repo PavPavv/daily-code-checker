@@ -1,8 +1,22 @@
+@import '../../../common/styles/variables.scss';
 
 .basic-info {
   &__row {
     width: 100%;
     height: 100%;
     margin: 0;
+  }
+
+  &__years {
+    @media screen and (max-width: $screen-tablet) {
+      display: none;
+    }
+  }
+
+  .stats-desktop {
+    display: block;
+    @media screen and (max-width: $screen-tablet) {
+      display: none;
+    }
   }
 }

@@ -50,15 +50,17 @@
         formControlName="stack"
       >
     </mat-form-field>
-    <div class="submit-btn">
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="addStatForm.invalid"
-      >
-        Submit
-      </button>
-    </div>
+    @if (isAuth) {
+      <div class="submit-btn">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="addStatForm.invalid"
+        >
+          Submit
+        </button>
+      </div>
+    }
   </form>
 </div>

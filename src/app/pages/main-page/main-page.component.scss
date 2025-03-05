@@ -1,9 +1,23 @@
+@import '../../common/styles/variables.scss';
+
 .main-page {
   padding: 20px;
 
   .container {
-    max-width: 1200px;
+    max-width: $max-width;
     width: 100%;
     margin: 0 auto;
+
+    .mb-3 {
+      margin-bottom: 20px;
+    }
+
+    .mobile {
+      display: none;
+
+      @media screen and (max-width: $screen-tablet) {
+        display: block;
+      }
+    }
   }
 }
