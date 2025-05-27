@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { delay, EMPTY, switchMap, tap, timer } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -109,7 +109,6 @@ export class DailyStatTableComponent implements OnInit {
   }
 
   private _addStatsDataToCells(data: DailyStat[]): void {
-    console.log('_addStatsDataToCells!');
     if (data && data.length) {
       // TODO: remove year constant after backend data completed
       if (Number(this.dateService.currentYear$.getValue()) > 2023) {
@@ -132,7 +131,6 @@ export class DailyStatTableComponent implements OnInit {
 
       // TODO: remove year constant after backend data completed
       } else if (Number(this.dateService.currentYear$.getValue()) === 2023) {
-        console.log('2023');
         const firstWeekDayInYearNum = new Date('2023-01-01').getDay();
         const firstWeekDayInYear = firstWeekDayInYearNum ? firstWeekDayInYearNum : 7;
         const firstDataDate = data[0]?.date;
@@ -202,9 +200,15 @@ export class DailyStatTableComponent implements OnInit {
         disableClose: true,
       });
   
-      dialogRef.afterClosed().subscribe(() => {
-        this._getDailyDataByActiveYear();
-      });
+      dialogRef.afterClosed()
+        .pipe(
+          delay(1000),
+          switchMap(() => {
+            this._getDailyDataByActiveYear();
+            return EMPTY;
+          })
+        )
+        .subscribe();
     }
   }
 }
